@@ -23,8 +23,8 @@ const Text_sim_sum = () => {
       const formData = new FormData();
       formData.append('pdf', file);
       try {
-        const response = await axios.post('/summarize', formData);
-        const summarizedtext = response.data;
+        let response = await axios.post(`${process.env.REACT_APP_DJANGO_ADDRESS}/summarize/` ,formData)
+        let summarizedtext = await response.data.summarized_text;
         setSimplifiedText('');
         setSummarizedText(summarizedtext);
       } catch (error) {
@@ -39,8 +39,8 @@ const Text_sim_sum = () => {
       formData.append('pdf', file);
 
       try {
-        const response = await axios.post('/simplify', formData);
-        const simplifiedtext = response;
+        const response = await axios.post(`${process.env.DJANGO_ADDRESS}/simplify/`, formData);
+        const simplifiedtext = response.data;
         await setSummarizedText('');
         await setSimplifiedText(simplifiedtext);
       } catch (error) {
