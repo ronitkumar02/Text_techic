@@ -1,23 +1,62 @@
-from django.shortcuts import render
-from rest_framework.views import APIView
-from . models import *
-from rest_framework.response import Response
-from . serializer import *
-# Create your views here.
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import api_view
+import os
+import PyPDF2
+
+@api_view(['GET', 'POST'])
+@csrf_exempt
+def summarize_text(request):
+    if request.method == 'POST':
+        uploaded_file = request.FILES.get('pdf')
+        if uploaded_file:
+            # content = uploaded_file.read()
+            # print(uploaded_file)
+            # text = pdf_to_text(content)
+            # Perform text summarization logic here
+            summarized_text = "This is the summarized pdf."
+            return JsonResponse({'summarized_text': summarized_text})
+    elif request.method == 'GET':
+        uploaded_file = request.FILES.get('pdf')
+        if uploaded_file:
+            content = uploaded_file.read()
+            # print(request.text())
+            # Perform text simplification logic here
+        simplified_text = "This is the simplified text."
+        return JsonResponse({'summarized_text': simplified_text})
+    return JsonResponse({'error': 'Invalid request'})
+
+@api_view(['GET', 'POST'])
+@csrf_exempt
+def simplify_text(request):
+    if request.method == 'POST':
+        uploaded_file = request.FILES.get('pdf')
+        if uploaded_file:
+            content = uploaded_file.read()
+            # Perform text simplification logic here
+            simplified_text = "This is the simplified text."
+            return JsonResponse({'simplified_text': simplified_text})
+    return JsonResponse({'error': 'Invalid request'})
 
 
-class ReactView(APIView):
+def pdf_to_text(pdf_file):
+    # Open the PDF file in binary mode
+    with open(pdf_file, 'rb') as pdf_file:
+        # Create a PDF reader object
+        pdf_reader = PyPDF2.PdfReader(pdf_file)
 
-    serializer_class = ReactSerializer
+        # Initialize an empty string to store the extracted text
+        text = ""
 
-    def get(self, request):
-        output = [{"employee": output.employee, "department": output.department}
-                  for output in React.objects.all()]
-        return Response(output)
+        # Iterate through each page of the PDF
+        for page_num in range(len(pdf_reader.pages)):
+            # Get a specific page
+            page = pdf_reader.pages[page_num]
 
-    def post(self, request):
+            # Extract text from the page
+            page_text = page.extract_text()
 
-        serializer = ReactSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data)
+            # Append the page's text to the overall text
+            text += page_text
+
+    return text
