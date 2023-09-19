@@ -3,12 +3,34 @@ import "./css/text simp_sum.css"
 import Footer from "./Footer";
 import NavBar from "./NavBar";
 import axios from "axios";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 
 const Text_sim_sum = () => {
   const [file, setFile] = useState(null);
   const [summarizedText, setSummarizedText] = useState('');
   const [simplifiedText, setSimplifiedText] = useState('');
+  const [displayText, setDisplayText] = useState('');
+  const [typingIndex, setTypingIndex] = useState(0);
+  const [showEllipsis, setShowEllipsis] = useState(false);
+
+  useEffect(() => {
+    const typingSpeed = 20; // Adjust typing speed as needed
+
+    const typingInterval = setInterval(() => {
+      if (typingIndex < summarizedText.length) {
+        setDisplayText((prevText) => prevText + summarizedText[typingIndex]);
+        setTypingIndex((prevIndex) => prevIndex + 1);
+        setShowEllipsis(true);
+      } else {
+        clearInterval(typingInterval)
+        setShowEllipsis(false)
+      }
+    }, typingSpeed);
+
+    return () => {
+      clearInterval(typingInterval);
+    };
+  }, [summarizedText, typingIndex]);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -22,9 +44,14 @@ const Text_sim_sum = () => {
     if (file) {
       const formData = new FormData();
       formData.append('pdf', file);
+      console.log(`${process.env.REACT_APP_DJANGO_ADDRESS}/summarize/`);
       try {
-        let response = await axios.post(`${process.env.REACT_APP_DJANGO_ADDRESS}/summarize/` ,formData)
+        let response = await axios.post(`${process.env.REACT_APP_DJANGO_ADDRESS}/summarize/` ,formData,{        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
         let summarizedtext = await response.data.summarized_text;
+        console.log(formData);
         setSimplifiedText('');
         setSummarizedText(summarizedtext);
       } catch (error) {
@@ -39,7 +66,9 @@ const Text_sim_sum = () => {
       formData.append('pdf', file);
 
       try {
-        const response = await axios.post(`${process.env.DJANGO_ADDRESS}/simplify/`, formData);
+        const response = await axios.post(`${process.env.DJANGO_ADDRESS}/simplify/`, formData,{headers: {
+          'Content-Type': 'multipart/form-data',}
+        },);
         const simplifiedtext = response.data;
         await setSummarizedText('');
         await setSimplifiedText(simplifiedtext);
@@ -70,7 +99,7 @@ const Text_sim_sum = () => {
               </div>
           </div>
           <div style={{height: "20px"}}></div>
-          <div className="input-text" style={{color: "black"}}>{summarizedText || simplifiedText || 'Summarized and Simplified document will be displayed here...'}</div>
+          <div className="input-text" style={{color: "black"}}>{displayText || simplifiedText || 'Summarized and Simplified document will be displayed here...'}{showEllipsis && '|'}</div>
           <div style={{height: "20px"}}></div>
           <center>
             <h2>Summarize any text with a click of a button</h2>
