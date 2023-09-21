@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./css/Footer.css"
 
 const Footer = () => {
@@ -46,12 +47,14 @@ const Footer = () => {
                 </div>
                 <div className="col-lg-3 col-md-6">
                     <div className="f_widget social-widget pl_70 wow fadeInLeft" data-wow-delay="0.8s" style={{visibility: "visible", animationDelay: "0.2s", animationName: "fadeInLeft"}}>
-                        <h3 className="f-title f_600 t_color f_size_18">Team Solutions</h3>
+                        <h3 className="f-title f_600 t_color f_size_18">Team Members</h3>
                         <div className="f_social_icon">
-                            <a href="#home" className="fab fa-facebook"></a>
-                            <a href="#home" className="fab fa-twitter"></a>
-                            <a href="#home" className="fab fa-linkedin"></a>
-                            <a href="#home" className="fab fa-pinterest"></a>
+                            <Link to="#home" className="fab fa-facebook"></Link>
+                            <Link to="#home" className="fab fa-twitter"></Link>
+                            <Link to="#home" className="fab fa-linkedin"></Link>
+                            <Link to="#home" className="fab fa-pinterest"></Link>
+                            <Link to="#home" className="fab fa-pinterest"></Link>
+                            <Link to="#home" className="fab fa-pinterest"></Link>
                         </div>
                     </div>
                 </div>
@@ -67,7 +70,7 @@ const Footer = () => {
                     <p className="mb-0 f_400">© cakecounter Inc.. 2019 All rights reserved.</p>
                 </div>
                 <div className="col-lg-6 col-sm-5 text-right">
-                    <p>Made with <i className="icon_heart"></i> in <a href="hhomettp://cakecounter.com" target="_blank">CakeCounter</a></p>
+                    <p>Made with <i className="icon_heart"></i> in <Link to="hhomettp://cakecounter.com" target="_blank">CakeCounter</Link></p>
                 </div>
             </div>
         </div>
