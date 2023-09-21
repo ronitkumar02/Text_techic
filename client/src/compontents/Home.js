@@ -89,7 +89,7 @@ const Home = () => {
               </div>
             </div>
             <div className="col">
-              <div className="card" style={{margin: "5%"}}>
+              <div className="card features" style={{margin: "5%"}}>
                 <img src={require("../photos and icons/photos/image (2).png")} className="card-img-top" alt="..."/>
                 <div className="card-body">
                   <h5 className="card-title">Expert Advice</h5>
@@ -98,7 +98,7 @@ const Home = () => {
               </div>
             </div>
             <div className="col">
-              <div className="card" style={{margin: "5%"}}>
+              <div className="card features" style={{margin: "5%"}}>
                 <img src={require("../photos and icons/photos/image (3).png")} className="card-img-top" alt="..."/>
                 <div className="card-body">
                   <h5 className="card-title">Clause Library</h5>
@@ -107,7 +107,7 @@ const Home = () => {
               </div>
             </div>
             <div className="col">
-                <div className="card" style={{margin: "5%"}}>
+                <div className="card features" style={{margin: "5%"}}>
                   <img src={require("../photos and icons/photos/image (4).png")} className="card-img-top" alt="..."/>
                   <div className="card-body">
                     <h5 className="card-title">Privacy Preservation</h5>
@@ -116,7 +116,7 @@ const Home = () => {
                 </div>
               </div>
               <div className="col">
-                <div className="card" style={{margin: "5%"}}>
+                <div className="card features" style={{margin: "5%"}}>
                   <img src={require("../photos and icons/photos/image (5).png")} className="card-img-top" alt="..."/>
                   <div className="card-body">
                     <h5 className="card-title">Multi-Lingual Support</h5>
