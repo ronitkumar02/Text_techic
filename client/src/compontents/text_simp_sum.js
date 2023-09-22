@@ -147,14 +147,23 @@ const Text_sim_sum = () => {
             </label>
             <br/>
         </div>
-              <div className="col-3 btn-grp">
+        <div className="col-6">
+        <label for="customRange2" class="form-label">Length of the Output text</label>
+                <input type="range" class="form-range" min="0" max="2" id="customRange2"></input>
+                <div className="row">
+                  <div className="col-4">Small</div>
+                  <div className="col-4"><center>Medium</center></div>
+                  <div className="col-4" style={{display: "flex",justifyContent:"end"}}>Large</div>
+                </div>
+                <div className="row">
+                <div className="col-6 btn-grp">
                 <button type="submit" className="btn btn-primary" style={{width: "100%"}} value="Summarize" onClick={handleSummarize}>Summarize</button>
               </div>
-              <div className="col-3 btn-grp">
+              <div className="col-6 btn-grp">
                 <button type="submit" className="btn btn-primary" style={{width: "100%"}} value="Simplify" onClick={handleSimplify}>Simplify</button>
+                </div>
               </div>
-          </div>
-          <div style={{height: "20px"}}></div>
+        </div>
           {showSippner && <Sippner/>}
           {!showSippner && <div style={{display: "flex",justifyContent: "right"}}>
           <div className="dropdown" style={{width: "30%"}}>
@@ -201,7 +210,9 @@ const Text_sim_sum = () => {
           <Footer/>
           <ChatBot/>
         </div>
+        </div>
     );
 }
 
 export default Text_sim_sum;
+
